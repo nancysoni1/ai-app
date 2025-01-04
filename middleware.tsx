@@ -17,7 +17,10 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/dashboard', request.url))
     }
     //token h matlab verifed ho toh unko dashboard pe redirect krdo
-    return NextResponse.redirect(new URL('/home', request.url))
+    if(!token && url.pathname.startsWith('/dashboard')){
+        return NextResponse.redirect(new URL('/sign-in',request.url));
+    }
+    return NextResponse.next()
   
 }
 //paranthesis jab bhi bnate h grouping krte h (auth)
